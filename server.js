@@ -21,14 +21,14 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(cors({
-  origin: 'http://localhost:5174',
+  origin: 'https://purpleschool.vercel.app',
   credentials: true,
 }));
 
 // Socket.IO CORS
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5174',
+    origin: 'https://purpleschool.vercel.app',
     methods: ['GET', 'POST'],
     credentials: true,
   },
