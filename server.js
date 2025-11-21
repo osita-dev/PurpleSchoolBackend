@@ -283,6 +283,13 @@ app.post('/api/rooms', async (req, res) => {
       room.expiresAt = new Date(Date.now() + expiresInMinutes * 60 * 1000);
     }
     await room.save();
+
+    // --- REALTIME EMIT: notify all clients a new room was created ---
+    const roomObj = room.toObject ? room.toObject() : room;
+    // roomObj.thumbnail = '/mnt/data/Screenshot (853).png';
+    io.emit('room-created', roomObj);
+    // ----------------------------------------------------------------
+
     return res.status(201).json(room);
   } catch (err) {
     console.error(err);
